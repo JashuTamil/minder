@@ -1,23 +1,26 @@
 "use client";
 
 import { Movie } from "./movies"
+import Button from "@mui/material/Button"
 import React, { useState } from "react";
 
 
 const App: React.FC  = () => {
     const [index, setIndex] = useState(0);
-    let yes: Movie[] = []
-    let no: Movie[] = []
+    const [yesitem, setYesItem] = useState<Movie[]>([])
+    const [noitem, setNoItem] = useState<Movie[]>([])
+
 
     const handleYes = () => {
-        setIndex((prevIndex) => (prevIndex + 1) % movies.length)
-        yes.push(movies[index])
+        setIndex((prevIndex) => (prevIndex + 1))
+        setYesItem((previousState) => [...previousState, movies[index]])
     }
 
     const handleNo = () => {
         setIndex((prevIndex) => (prevIndex + 1))
-        no.push(movies[index])
+        setNoItem((previousState) => [...previousState, movies[index]])
     }
+
 
     const movies: Movie[] = [{
         name: "Inception",
@@ -50,14 +53,18 @@ const App: React.FC  = () => {
         <div className="movie-displayer">
             <h1>Minder</h1>
             <div>
-                {movies.length > 0  && index < movies.length? (
-                    <p> {movies[index].name}</p>
-                ) : (
-                    <p> No items to display!</p>
-                )
-                }
-                <button onClick = {handleYes}> I like it!</button>
-                <button onClick = {handleNo}> Me no like</button>
+                {index < movies.length ? (
+                    <div className="movie-details">
+                        <h2>{movies[index].name}</h2>
+                        <p><strong>Director:</strong> {movies[index].director}</p>
+                        <p><strong>Cast:</strong> {movies[index].cast.join(", ")}</p>
+                        <p><strong>Year:</strong> {movies[index].year}</p>
+                        <p>{movies[index].description}</p>
+                        <Button onClick = {handleYes}> I like it!</Button>
+                        <Button onClick = {handleNo}> Me no like</Button>
+                    </div>
+                ): (<p>No items to display!</p>)}
+                
             </div>
         </div>
 
