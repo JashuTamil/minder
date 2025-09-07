@@ -3,24 +3,25 @@
 import { Movie } from "./movies"
 import Button from "@mui/material/Button"
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 
 const App: React.FC  = () => {
-    const [index, setIndex] = useState(0);
-    const [yesitem, setYesItem] = useState<Movie[]>([])
-    const [noitem, setNoItem] = useState<Movie[]>([])
-
+    const dispatch = useDispatch()
+    const yes = useSelector((state: any) => state.yes)
+    const no = useSelector((state: any) => state.no)
+    const movies = useSelector((state: any) => state.movies)
+    const index = useSelector((state: any) => state.index)
 
     const handleYes = () => {
-        setIndex((prevIndex) => (prevIndex + 1))
-        setYesItem((previousState) => [...previousState, movies[index]])
+        dispatch({type: 'inputHandling/setYes', payload: movies[index]})
+        dispatch({type: 'inputHandling/setIdx'})
     }
 
     const handleNo = () => {
-        setIndex((prevIndex) => (prevIndex + 1))
-        setNoItem((previousState) => [...previousState, movies[index]])
+        dispatch({type: 'inputHandling/setYes', payload: movies[index]})
+        dispatch({type: 'inputHandling/setIdx'})
     }
-
 
     return (
         <div className="movie-displayer">

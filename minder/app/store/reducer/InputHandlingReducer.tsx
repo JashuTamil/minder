@@ -4,11 +4,13 @@ import { Movie } from "@/app/movies";
 interface InputHandlingState {
     movies: Movie[],
     yes: Movie[],
-    no: Movie[]
+    no: Movie[],
+    index: number
 }
 
-const setYes = createAction<Movie[]>('inputHandling/setYes')
-const setNo = createAction<Movie[]>('inputHandling/setNo')
+const setYes = createAction<Movie>('inputHandling/setYes')
+const setNo = createAction<Movie>('inputHandling/setNo')
+const setIdx = createAction<Movie>('inputHandling/setIdx')
 
 const initialState = { movies: [{
         name: "Inception",
@@ -33,14 +35,17 @@ const initialState = { movies: [{
         year: 2014,
         image: "/interstellar.jpg",
         description: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival."
-    }], yes: [], no: [] } satisfies InputHandlingState as InputHandlingState
+    }], yes: [], no: [], index: 0 } satisfies InputHandlingState as InputHandlingState
 
     export const inputHandlingReducer = createReducer(initialState, (builder) => {
         builder
          .addCase(setYes, (state, action) => {
-
+            state.yes.push(action.payload)
          })
          .addCase(setNo, (state, action) => {
-            
+            state.no.push(action.payload)
+         })
+         .addCase(setIdx, (state) => {
+            state.index += 1
          })
     })

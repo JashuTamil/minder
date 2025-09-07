@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef } from 'react'
 import { Provider, useDispatch, useSelector, useStore } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
