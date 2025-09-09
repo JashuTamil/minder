@@ -3,6 +3,5 @@ export type Movie = {
     director: string;
     cast: string[];
     year: number;
-    image: string;
     description: string;
 }

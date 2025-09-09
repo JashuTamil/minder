@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@mui/lab": "^7.0.0-beta.17",
+    "@mui/x-data-grid": "^8.11.1",
     "@reduxjs/toolkit": "^2.9.0",
     "next": "15.5.2",
     "react": "19.1.0",
