@@ -13,6 +13,7 @@ const setNo = createAction<Movie>('inputHandling/setNo')
 const setIdx = createAction<Movie>('inputHandling/setIdx')
 
 const initialState = { movies: [{
+        id: 1,
         name: "Inception",
         director: "Christopher Nolan",
         cast: ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"],
@@ -20,6 +21,7 @@ const initialState = { movies: [{
         description: "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O."
     },
     {
+        id: 2,
         name: "The Matrix",
         director: "The Wachowskis",
         cast: ["Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss"],
@@ -27,6 +29,7 @@ const initialState = { movies: [{
         description: "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers."
     },
     {
+        id: 3,
         name: "Interstellar",
         director: "Christopher Nolan",
         cast: ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain"],

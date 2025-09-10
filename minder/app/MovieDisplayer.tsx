@@ -19,7 +19,7 @@ const App: React.FC  = () => {
     }
 
     const handleNo = () => {
-        dispatch({type: 'inputHandling/setYes', payload: movies[index]})
+        dispatch({type: 'inputHandling/setNo', payload: movies[index]})
         dispatch({type: 'inputHandling/setIdx'})
     }
 
