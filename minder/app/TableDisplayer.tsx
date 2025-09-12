@@ -8,9 +8,9 @@ import Tab from '@mui/material/Tab';
 import { Box } from "@mui/material";
 
 const graph: React.FC = () => {
-    const dispatch = useDispatch()
     const yes = useSelector((state: any) => state.yes)
     const no = useSelector((state: any) => state.no)
+    const seen = useSelector((state: any) => state.seen)
     const [tabValue, setValue] = useState("1");
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -31,6 +31,7 @@ const graph: React.FC = () => {
                 <TabList onChange={handleChange} aria-label="Tabs" sx={{backgroundColor: 'white'}}>
                     <Tab label="Me Likey" value="1" color='white'/>
                     <Tab label="Me No Likey" value="2" color='white'/>
+                    <Tab label="Seen it" value="3" color='white'/>
                 </TabList>
             </Box>
             <TabPanel value="1" sx={{backgroundColor: 'white'}}>
@@ -48,6 +49,17 @@ const graph: React.FC = () => {
                 <Box sx={{height: 400, width: '100%', backgroundColor: 'white'}}>
                     <DataGrid
                     rows={no}
+                    columns={columns}
+                    getRowHeight={() => 'auto'}
+                    checkboxSelection
+                    disableRowSelectionOnClick
+                    />
+                </Box>
+            </TabPanel>
+            <TabPanel value="3" sx={{backgroundColor: 'white'}}>
+                <Box sx={{height: 400, width: '100%', backgroundColor: 'white'}}>
+                    <DataGrid
+                    rows={seen}
                     columns={columns}
                     getRowHeight={() => 'auto'}
                     checkboxSelection

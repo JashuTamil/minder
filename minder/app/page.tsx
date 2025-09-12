@@ -1,8 +1,7 @@
 import Image from "next/image";
-import { Movie } from "./movies";
 import MovieDisplayer from "./MovieDisplayer";
 import StoreProvider from "./StoreProvider";
-import YesNoDisplayer from "./YesNoDisplayer";
+import TableDisplayer from "./TableDisplayer";
 
 // Step 1: Create a database of movies (name, director, cast, image, etc...keep it simple)
 // Step 2: create a new component that takes those movies and displays them
@@ -105,7 +104,7 @@ export default function Home() {
         </a>
       </footer>
       <MovieDisplayer />
-      <YesNoDisplayer />
+      <TableDisplayer />
     </div>
     </StoreProvider>
   );

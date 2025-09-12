@@ -5,11 +5,13 @@ interface InputHandlingState {
     movies: Movie[],
     yes: Movie[],
     no: Movie[],
+    seen: Movie[],
     index: number
 }
 
 const setYes = createAction<Movie>('inputHandling/setYes')
 const setNo = createAction<Movie>('inputHandling/setNo')
+const setSeen = createAction<Movie>('inputHandling/setSeen')
 const setIdx = createAction<Movie>('inputHandling/setIdx')
 
 const initialState = { movies: [{
@@ -35,7 +37,7 @@ const initialState = { movies: [{
         cast: ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain"],
         year: 2014,
         description: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival."
-    }], yes: [], no: [], index: 0 } satisfies InputHandlingState as InputHandlingState
+    }], yes: [], no: [], seen: [], index: 0 } satisfies InputHandlingState as InputHandlingState
 
     export const inputHandlingReducer = createReducer(initialState, (builder) => {
         builder
@@ -44,6 +46,9 @@ const initialState = { movies: [{
          })
          .addCase(setNo, (state, action) => {
             state.no.push(action.payload)
+         })
+         .addCase(setSeen, (state, action) => {
+            state.seen.push(action.payload)
          })
          .addCase(setIdx, (state) => {
             state.index += 1

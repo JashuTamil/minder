@@ -1,15 +1,12 @@
 "use client";
 
-import { Movie } from "./movies"
 import Button from "@mui/material/Button"
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 
 const App: React.FC  = () => {
     const dispatch = useDispatch()
-    const yes = useSelector((state: any) => state.yes)
-    const no = useSelector((state: any) => state.no)
     const movies = useSelector((state: any) => state.movies)
     const index = useSelector((state: any) => state.index)
 
@@ -20,6 +17,11 @@ const App: React.FC  = () => {
 
     const handleNo = () => {
         dispatch({type: 'inputHandling/setNo', payload: movies[index]})
+        dispatch({type: 'inputHandling/setIdx'})
+    }
+
+    const handleSeen = () => {
+        dispatch({type: 'inputHandling/setSeen', payload: movies[index]})
         dispatch({type: 'inputHandling/setIdx'})
     }
 
@@ -34,8 +36,9 @@ const App: React.FC  = () => {
                         <p><strong>Cast:</strong> {movies[index].cast.join(", ")}</p>
                         <p><strong>Year:</strong> {movies[index].year}</p>
                         <p>{movies[index].description}</p>
-                        <Button onClick = {handleYes}> I like it!</Button>
-                        <Button onClick = {handleNo}> Me no like</Button>
+                        <Button onClick = {handleYes}>I like it!</Button>
+                        <Button onClick = {handleNo}>Me no like</Button>
+                        <Button onClick = {handleSeen}>Seen it :|</Button>
                     </div>
                 ): (<p>No items to display!</p>)}
                 
