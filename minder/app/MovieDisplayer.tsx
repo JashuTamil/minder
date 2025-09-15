@@ -2,6 +2,7 @@
 
 import Button from "@mui/material/Button"
 import React from "react";
+import TinderCard from "react-tinder-card"
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -23,6 +24,10 @@ const App: React.FC  = () => {
     const handleSeen = () => {
         dispatch({type: 'inputHandling/setSeen', payload: movies[index]})
         dispatch({type: 'inputHandling/setIdx'})
+    }
+
+    const handleSwipe = (direction) => {
+        
     }
 
     return (
