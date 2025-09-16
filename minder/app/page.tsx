@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import MovieDisplayer from "./MovieDisplayer";
 import StoreProvider from "./StoreProvider";
