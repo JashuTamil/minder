@@ -4,6 +4,7 @@ import Image from "next/image";
 import MovieDisplayer from "./MovieDisplayer";
 import StoreProvider from "./StoreProvider";
 import TableDisplayer from "./TableDisplayer";
+import SwipeCards from "./SwipeCards";
 
 // Step 1: Create a database of movies (name, director, cast, image, etc...keep it simple)
 // Step 2: create a new component that takes those movies and displays them
@@ -105,7 +106,7 @@ export default function Home() {
           Go to nextjs.org →
         </a>
       </footer>
-      <MovieDisplayer />
+      <SwipeCards />
       <TableDisplayer />
     </div>
     </StoreProvider>

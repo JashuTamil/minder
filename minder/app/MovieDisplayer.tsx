@@ -1,16 +1,22 @@
 "use client";
 
 import Button from "@mui/material/Button"
-import React from "react";
-import TinderCard from "react-tinder-card"
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Movie } from "./movies";
+
 
 
 const App: React.FC  = () => {
     const dispatch = useDispatch()
     const movies = useSelector((state: any) => state.movies)
     const index = useSelector((state: any) => state.index)
+
+    const SwipeCards = () => {
+        const [cards, setCards] = useState(movies);
+    }
+
+    
 
     const handleYes = () => {
         dispatch({type: 'inputHandling/setYes', payload: movies[index]})
@@ -33,24 +39,6 @@ const App: React.FC  = () => {
 
     return (
         <div className="movie-displayer">
-            <link href='https://fonts.googleapis.com/css?family=Damion&display=swap' rel='stylesheet' />
-            <link href='https://fonts.googleapis.com/css?family=Alatsi&display=swap' rel='stylesheet' />
-            <h1>Minder</h1>
-            <div className='cardContainer'>
-                {movies.map((movie: Movie) =>
-                <TinderCard className='swipe' key={movie.name} onSwipe={(dir: string) => handleSwipe(dir, movie)}>
-                    <div>
-                        <h3>{movie.name}</h3>
-                        <h3>{movie.director}</h3>
-                        <h3>{movie.description}</h3>
-                        <h3>{movie.cast}</h3>
-                        <h3>{movie.year}</h3>
-                    </div>
-                </TinderCard>
-                )}
-
-
-
                 {index < movies.length ? (
                     <div className="movie-details">
                         <h2>{movies[index].name}</h2>
@@ -65,8 +53,6 @@ const App: React.FC  = () => {
                 ): (<p>No items to display!</p>)}
                 
             </div>
-        </div>
-
     )
 
 }
