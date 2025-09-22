@@ -46,12 +46,18 @@ const Card: React.FC<CardProps> = ({ id, url, setCards, cards }) => {
 
   return (
     <motion.div
-      className="h-96 w-72 origin-bottom rounded-lg bg-white"
+      className="h-96 w-72 origin-bottom rounded-lg bg-white  object-cover hover:cursor-grab active:cursor-grabbing"
       style={{
         gridRow: 1,
         gridColumn: 1,
+        x,
+        opacity,
+        rotate,
       }}
-      onClick={() => setFlipped((f) => !f)}
+       drag="x"
+      dragConstraints={{ left: 0, right: 0 }}
+      onPanEnd={handleDragEnd}
+      onTap={() => setFlipped((f) => !f)}
     >
       <motion.div
         className="relative h-full w-full rounded-lg shadow-lg object-cover hover:cursor-grab active:cursor-grabbing"
@@ -59,13 +65,7 @@ const Card: React.FC<CardProps> = ({ id, url, setCards, cards }) => {
         transition={{ duration: 0.6 }}
         style={{
           transformStyle: "preserve-3d",
-          x,
-          opacity,
-          rotate,
         }}
-        drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-        onDragEnd={handleDragEnd}
       >
         {/* Front side */}
         <div className="absolute inset-0 backface-hidden">
