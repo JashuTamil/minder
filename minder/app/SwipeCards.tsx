@@ -12,10 +12,15 @@ const SwipeCards = () => {
     >
       {cards.map((card) => {
         return (
-          <><Card key={card.id} cards={cards} setCards={setCards} {...card} />
-          </>
+          <Card key={card.id} cards={cards} setCards={setCards} {...card} />
         );
       })}
+
+      {cards.length > 0 ? (
+        <p className="mt-4"> Name: {cards[cards.length - 1].name}</p>
+      ) : (
+        <p className="mt-4">No more cards</p>
+      )}
     </div>
   );
 };
@@ -42,7 +47,7 @@ const Card: React.FC<CardProps> = ({ name, id, url, setCards, cards }) => {
 
   const handleDragEnd = () => {
     if (Math.abs(x.get()) > 100) {
-      setCards((pv) => pv.filter((v) => v.id !== id));
+      setCards((pv) => pv.filter((v) => v.name !== name));
     }
   };
 
@@ -67,7 +72,6 @@ const Card: React.FC<CardProps> = ({ name, id, url, setCards, cards }) => {
       }}
       onDragEnd={handleDragEnd}
     />
-    <p> Name: {name}</p>
     </>
  );
 };
