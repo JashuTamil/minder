@@ -105,7 +105,7 @@ export default function Home() {
           Go to nextjs.org →
         </a>
       </footer>
-      <SwipeCards />
+      <MovieDisplayer />
       <TableDisplayer />
     </div>
     </StoreProvider>

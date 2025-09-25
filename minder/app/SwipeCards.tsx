@@ -12,7 +12,7 @@ const SwipeCards = () => {
     >
       {cards.map((card) => {
         return (
-          <Card key={card.id} cards={cards} setCards={setCards} {...card} />
+          <Card key={card.id} setCards={setCards} {...card} />
         );
       })}
 
@@ -33,13 +33,11 @@ type CardType = {
 
 type CardProps = {
   name: string;
-  id: number;
   url: string;
   setCards: React.Dispatch<React.SetStateAction<CardType[]>>;
-  cards: CardType[];
 };
 
-const Card: React.FC<CardProps> = ({ name, id, url, setCards, cards }) => {
+const Card: React.FC<CardProps> = ({ name, url, setCards }) => {
   const x = useMotionValue(0);
 
   const rotate = useTransform(x, [-150, 150], [-18, 18]);
@@ -75,52 +73,6 @@ const Card: React.FC<CardProps> = ({ name, id, url, setCards, cards }) => {
     </>
  );
 };
-
-    {/*
-    
-    
-    <motion.div
-      className="h-96 w-72 origin-bottom rounded-lg bg-white  object-cover hover:cursor-grab active:cursor-grabbing"
-      style={{
-        gridRow: 1,
-        gridColumn: 1,
-        x,
-        opacity,
-        rotate,
-      }}
-       drag="x"
-      dragConstraints={{ left: 0, right: 0 }}
-      onPanEnd={handleDragEnd}
-      onTap={() => setFlipped((f) => !f)}
-    >
-      <motion.div
-        className="relative h-full w-full rounded-lg shadow-lg object-cover hover:cursor-grab active:cursor-grabbing"
-        animate={{ rotateY: flipped ? 180 : 0 }}
-        transition={{ duration: 0.6 }}
-        style={{
-          transformStyle: "preserve-3d",
-        }}
-      >
-        {/* Front side }
-        <div className="absolute inset-0 backface-hidden">
-          <img
-            src={url}
-            alt="Front"
-            className="h-full w-full rounded-lg object-cover"
-          />
-        </div>
-
-        {/* Back side }
-        <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-white p-4 backface-hidden [transform:rotateY(180deg)]">
-          <p className="text-center text-lg font-semibold text-gray-800">
-            Card {id} info goes here!
-          </p>
-        </div>
-    </motion.div>
-    </motion.div>
-
-
-*/}
  
 export default SwipeCards;
 

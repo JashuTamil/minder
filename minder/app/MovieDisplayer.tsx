@@ -1,60 +1,88 @@
 "use client";
 
 import Button from "@mui/material/Button"
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Movie } from "./movies";
-
+import { motion, useMotionValue, useTransform } from "framer-motion";
+import { MovieType } from "./movies";
 
 
 const App: React.FC  = () => {
     const dispatch = useDispatch()
     const movies = useSelector((state: any) => state.movies)
-    const index = useSelector((state: any) => state.index)
-
-    const SwipeCards = () => {
-        const [cards, setCards] = useState(movies);
-    }
-
+    const setMovies = (movieName: string) => {dispatch({type:'inputHandling/SetIdx', payload: movieName})
+}
     
-
-    const handleYes = () => {
-        dispatch({type: 'inputHandling/setYes', payload: movies[index]})
-        dispatch({type: 'inputHandling/setIdx'})
-    }
-
-    const handleNo = () => {
-        dispatch({type: 'inputHandling/setNo', payload: movies[index]})
-        dispatch({type: 'inputHandling/setIdx'})
-    }
-
     const handleSeen = () => {
-        dispatch({type: 'inputHandling/setSeen', payload: movies[index]})
         dispatch({type: 'inputHandling/setIdx'})
     }
 
-    const handleSwipe = (direction: string, movie: Movie) => {
-        console.log(direction)
-    }
+   return (
+    <div
+      className="grid h-[400px] w-full place-items-center"
+    >
+      {movies.map((movie: MovieType) => {
+        return (
+          <Movie
+            key={movie.id}
+            setMovies={setMovies}
+            name={movie.name}
+            url={movie.url}
+          />
+        );
+      })}
 
-    return (
-        <div className="movie-displayer">
-                {index < movies.length ? (
-                    <div className="movie-details">
-                        <h2>{movies[index].name}</h2>
-                        <p><strong>Director:</strong> {movies[index].director}</p>
-                        <p><strong>Cast:</strong> {movies[index].cast.join(", ")}</p>
-                        <p><strong>Year:</strong> {movies[index].year}</p>
-                        <p>{movies[index].description}</p>
-                        <Button onClick = {handleYes}>I like it!</Button>
-                        <Button onClick = {handleNo}>Me no like</Button>
-                        <Button onClick = {handleSeen}>Seen it :|</Button>
-                    </div>
-                ): (<p>No items to display!</p>)}
-                
-            </div>
-    )
+      {movies.length > 0 ? (
+        <p className="mt-4"> Name: {movies[movies.length - 1].name}</p>
+      ) : (
+        <p className="mt-4">No more cards</p>
+      )}
+    </div>
+  );
 
 }
+
+type MovieProps = {
+  name: string;
+  url: string;
+  setMovies: (name: string) => void;
+};
+
+const Movie: React.FC<MovieProps> = ({ name, url, setMovies }) => {
+  const x = useMotionValue(0);
+
+  const rotate = useTransform(x, [-150, 150], [-18, 18]);
+  const opacity = useTransform(x, [-150, 0, 150], [0, 1, 0]);
+
+  const handleDragEnd = () => {
+    if (Math.abs(x.get()) > 100) {
+      setMovies(name);
+    }
+  };
+
+  return (
+    <>
+    <motion.img
+      src={url}
+      alt="Placeholder alt"
+      className="h-96 w-72 origin-bottom rounded-lg bg-white object-cover hover:cursor-grab active:cursor-grabbing"
+      style={{
+        gridRow: 1,
+        gridColumn: 1,
+        x,
+        opacity,
+        rotate,
+        transition: "0.125s transform",
+      }}
+      drag='x'
+      dragConstraints={{
+        left: 0,
+        right: 0,
+      }}
+      onDragEnd={handleDragEnd}
+    />
+    </>
+ );
+};
 
 export default App;
