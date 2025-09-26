@@ -1,5 +1,5 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
-import { MovieType } from "@/app/movies";
+import { idxProp, MovieType } from "@/app/types";
 
 interface InputHandlingState {
     movies: MovieType[],
@@ -7,11 +7,8 @@ interface InputHandlingState {
     no: MovieType[],
     seen: MovieType[],
 }
-
-const setYes = createAction<MovieType>('inputHandling/setYes')
-const setNo = createAction<MovieType>('inputHandling/setNo')
-const setSeen = createAction<MovieType>('inputHandling/setSeen')
-const setIdx = createAction<string>('inputHandling/setIdx')
+const setSeen = createAction<string>('inputHandling/setSeen')
+const setIdx = createAction<idxProp>('inputHandling/setIdx')
 
 const initialState = { movies: [{
         id: 1,
@@ -43,16 +40,23 @@ const initialState = { movies: [{
 
     export const inputHandlingReducer = createReducer(initialState, (builder) => {
         builder
-         .addCase(setYes, (state, action) => {
-            state.yes.push(action.payload)
-         })
-         .addCase(setNo, (state, action) => {
-            state.no.push(action.payload)
-         })
          .addCase(setSeen, (state, action) => {
-            state.seen.push(action.payload)
+            const movie = state.movies.find(item => item.name === action.payload)
+            state.movies = state.movies.filter(item => item.name !== action.payload)
+            
+            if (movie) {
+                state.seen.push(movie)
+            }
          })
          .addCase(setIdx, (state, action) => {
-            state.movies = state.movies.filter(item => item.name !== action.payload)
+            const movie = state.movies.find(item => item.name === action.payload.name)
+            state.movies = state.movies.filter(item => item.name !== action.payload.name)
+
+            if (action.payload.position > 100 && movie) {
+                state.yes.push(movie)
+            }
+            else if (movie) {
+                state.no.push(movie)
+            }
          })
     })

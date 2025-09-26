@@ -7,3 +7,8 @@ export type MovieType = {
     description: string;
     url: string
 }
+
+export type idxProp = {
+    name: string;
+    position: number;
+}

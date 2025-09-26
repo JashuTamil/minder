@@ -4,18 +4,14 @@ import Button from "@mui/material/Button"
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { motion, useMotionValue, useTransform } from "framer-motion";
-import { MovieType } from "./movies";
+import { MovieType } from "./types";
 
 
 const App: React.FC  = () => {
     const dispatch = useDispatch()
     const movies = useSelector((state: any) => state.movies)
-    const setMovies = (movieName: string) => {dispatch({type:'inputHandling/SetIdx', payload: movieName})
-}
-    
-    const handleSeen = () => {
-        dispatch({type: 'inputHandling/setIdx'})
-    }
+    const setMovies = (name: string, position: number) => {dispatch({type:'inputHandling/setIdx', payload: {name, position}})}
+    const setSeen = (name: string) => {dispatch({type:'inputHandling/setSeen', payload: name})}
 
    return (
     <div
@@ -26,6 +22,7 @@ const App: React.FC  = () => {
           <Movie
             key={movie.id}
             setMovies={setMovies}
+            setSeen={setSeen}
             name={movie.name}
             url={movie.url}
           />
@@ -45,10 +42,11 @@ const App: React.FC  = () => {
 type MovieProps = {
   name: string;
   url: string;
-  setMovies: (name: string) => void;
+  setMovies: (name: string, position: number) => void;
+  setSeen: (name: string) => void;
 };
 
-const Movie: React.FC<MovieProps> = ({ name, url, setMovies }) => {
+const Movie: React.FC<MovieProps> = ({ name, url, setMovies, setSeen }) => {
   const x = useMotionValue(0);
 
   const rotate = useTransform(x, [-150, 150], [-18, 18]);
@@ -56,7 +54,7 @@ const Movie: React.FC<MovieProps> = ({ name, url, setMovies }) => {
 
   const handleDragEnd = () => {
     if (Math.abs(x.get()) > 100) {
-      setMovies(name);
+      setMovies(name, x.get());
     }
   };
 
@@ -80,6 +78,7 @@ const Movie: React.FC<MovieProps> = ({ name, url, setMovies }) => {
         right: 0,
       }}
       onDragEnd={handleDragEnd}
+      onDoubleClick={() => setSeen(name)}
     />
     </>
  );

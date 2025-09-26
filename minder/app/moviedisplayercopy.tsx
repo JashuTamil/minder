@@ -3,7 +3,7 @@
 import Button from "@mui/material/Button"
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Movie } from "./movies";
+import { Movie } from "./types";
 
 
 
