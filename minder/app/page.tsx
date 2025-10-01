@@ -1,8 +1,5 @@
-
-import Image from "next/image";
 import MovieDisplayer from "./MovieDisplayer";
-import StoreProvider from "./StoreProvider";
-import TableDisplayer from "./TableDisplayer";
+import NavBar from "./components/navigation";
 
 // Step 1: Create a database of movies (name, director, cast, image, etc...keep it simple)
 // Step 2: create a new component that takes those movies and displays them
@@ -17,15 +14,13 @@ import TableDisplayer from "./TableDisplayer";
 
 export default function Home() {
   return (
-    <StoreProvider>
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-
         <div className="font-sans flex gap-4 items-center flex-col sm:flex-row">
-        MINDER
+        <NavBar />
+        <ul><li>MINDER</li></ul>
+        
         </div>
       <MovieDisplayer />
-      <TableDisplayer />
     </div>
-    </StoreProvider>
   );
 }
