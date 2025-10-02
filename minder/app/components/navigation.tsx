@@ -2,8 +2,9 @@ import Link from 'next/link'
 
 const NavBar = () => {
       return (
+    <div className="items-center">
     <nav>
-      <ul>
+      <ul style={{ display: "flex", listStyle: "none", gap: "1rem" }}>
         <li>
           <Link href="/">Home</Link>
         </li>
@@ -12,6 +13,7 @@ const NavBar = () => {
         </li>
       </ul>
     </nav>
+    </div>
   );
 };
 

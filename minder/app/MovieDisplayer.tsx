@@ -1,6 +1,5 @@
 "use client";
 
-import Button from "@mui/material/Button"
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { motion, useMotionValue, useTransform } from "framer-motion";
@@ -30,9 +29,9 @@ const App: React.FC  = () => {
       })}
 
       {movies.length > 0 ? (
-        <p className="mt-4"> Name: {movies[movies.length - 1].name}</p>
+        <p className="text-xl font-bold"> Name: {movies[movies.length - 1].name}</p>
       ) : (
-        <p className="mt-4">No more cards</p>
+        <p className="text-xl font-bold">No more cards</p>
       )}
     </div>
   );
