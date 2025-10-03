@@ -1,5 +1,4 @@
 import MovieDisplayer from "./MovieDisplayer";
-import NavBar from "./components/navigation";
 
 // Step 1: Create a database of movies (name, director, cast, image, etc...keep it simple)
 // Step 2: create a new component that takes those movies and displays them

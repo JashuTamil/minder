@@ -6,6 +6,7 @@ import { useState } from "react"
 import { TabContext, TabList, TabPanel } from "@mui/lab"
 import Tab from '@mui/material/Tab';
 import { Box } from "@mui/material";
+import { MovieType } from "./types";
 
 const graph: React.FC = () => {
     const yes = useSelector((state: any) => state.yes)
@@ -34,38 +35,38 @@ const graph: React.FC = () => {
                     <Tab label="Seen it" value="3" color='white'/>
                 </TabList>
             </Box>
-            <TabPanel value="1" sx={{backgroundColor: 'white'}}>
-                <Box sx={{height: 400, width: '100%', backgroundColor: 'white'}}>
-                    <DataGrid
-                    rows={yes}
-                    columns={columns}
-                    getRowHeight={() => 'auto'}
-                    checkboxSelection
-                    disableRowSelectionOnClick
-                    />
-                </Box>
+            <TabPanel value="1">
+                <div className="movieDisplay">
+                    {yes.map((movie: MovieType) => (
+                        <img
+                        key = {movie.id}
+                        src = {movie.url}
+                        style={{ width: '300px', margin: '10px' }}
+                        />
+                    ))}
+                </div>
             </TabPanel>
-            <TabPanel value="2" sx={{backgroundColor: 'white'}}>
-                <Box sx={{height: 400, width: '100%', backgroundColor: 'white'}}>
-                    <DataGrid
-                    rows={no}
-                    columns={columns}
-                    getRowHeight={() => 'auto'}
-                    checkboxSelection
-                    disableRowSelectionOnClick
-                    />
-                </Box>
+            <TabPanel value="2">
+                <div className="movieDisplay">
+                    {no.map((movie: MovieType) => (
+                        <img
+                        key = {movie.id}
+                        src = {movie.url}
+                        style={{ width: '300px', margin: '10px' }}
+                        />
+                    ))}
+                </div>
             </TabPanel>
-            <TabPanel value="3" sx={{backgroundColor: 'white'}}>
-                <Box sx={{height: 400, width: '100%', backgroundColor: 'white'}}>
-                    <DataGrid
-                    rows={seen}
-                    columns={columns}
-                    getRowHeight={() => 'auto'}
-                    checkboxSelection
-                    disableRowSelectionOnClick
-                    />
-                </Box>
+            <TabPanel value="3">
+                <div className="movieDisplay">
+                    {seen.map((movie: MovieType) => (
+                        <img
+                        key = {movie.id}
+                        src = {movie.url}
+                        style={{ width: '300px', margin: '10px' }}
+                        />
+                    ))}
+                </div>
             </TabPanel>
         </TabContext>
         </>
