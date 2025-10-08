@@ -36,14 +36,25 @@ const graph: React.FC = () => {
                 </TabList>
             </Box>
             <TabPanel value="1">
-                <div className="movieDisplay">
+                <div className="flip-card">
                     {yes.map((movie: MovieType) => (
-                        <img
-                        key = {movie.id}
-                        src = {movie.url}
-                        style={{ width: '300px', margin: '10px' }}
-                        />
-                    ))}
+                    <div className="flip-card-inner">
+                        <div className="flip-card-front"> 
+                            <img
+                            key = {movie.id}
+                            src = {movie.url}
+                            style={{ width: '300px', margin: '10px' }}
+                            />
+                        </div>
+                        <div className="flip-card-back"> 
+                            <p>{movie.name}</p>
+                            <p>{movie.year}</p>
+                            <p>{movie.director}</p>
+                            <p>{movie.cast}</p>
+                        </div>
+                    </div>
+                        
+                    ))} 
                 </div>
             </TabPanel>
             <TabPanel value="2">
