@@ -36,47 +36,72 @@ const graph: React.FC = () => {
                 </TabList>
             </Box>
             <TabPanel value="1">
-                <div className="flip-card">
+                <div className="movieDisplay">
                     {yes.map((movie: MovieType) => (
-                    <div className="flip-card-inner">
-                        <div className="flip-card-front"> 
-                            <img
-                            key = {movie.id}
-                            src = {movie.url}
-                            style={{ width: '300px', margin: '10px' }}
-                            />
-                        </div>
-                        <div className="flip-card-back"> 
-                            <p>{movie.name}</p>
-                            <p>{movie.year}</p>
-                            <p>{movie.director}</p>
-                            <p>{movie.cast}</p>
-                        </div>
-                    </div>
-                        
-                    ))} 
+                    <div key={movie.id} className="flip-card">
+                        <div className="flip-card-inner">
+                            <div className="flip-card-front"> 
+                                <img
+                                key = {movie.id}
+                                src = {movie.url}
+                                style={{ width: '300px', margin: '10px' }}
+                                />
+                            </div>
+                            <div className="flip-card-back"> 
+                                <p>{movie.name}</p>
+                                <p>{movie.year}</p>
+                                <p>{movie.director}</p>
+                                <p>{movie.cast}</p>
+                            </div>
+                        </div>  
+                    </div> 
+                    ))}   
                 </div>
             </TabPanel>
             <TabPanel value="2">
                 <div className="movieDisplay">
                     {no.map((movie: MovieType) => (
-                        <img
-                        key = {movie.id}
-                        src = {movie.url}
-                        style={{ width: '300px', margin: '10px' }}
-                        />
-                    ))}
+                    <div key={movie.id} className="flip-card">
+                        <div className="flip-card-inner">
+                            <div className="flip-card-front"> 
+                                <img
+                                key = {movie.id}
+                                src = {movie.url}
+                                style={{ width: '300px', margin: '10px' }}
+                                />
+                            </div>
+                            <div className="flip-card-back"> 
+                                <p>{movie.name}</p>
+                                <p>{movie.year}</p>
+                                <p>{movie.director}</p>
+                                <p>{movie.cast}</p>
+                            </div>
+                        </div>  
+                    </div> 
+                    ))}   
                 </div>
             </TabPanel>
             <TabPanel value="3">
                 <div className="movieDisplay">
                     {seen.map((movie: MovieType) => (
-                        <img
-                        key = {movie.id}
-                        src = {movie.url}
-                        style={{ width: '300px', margin: '10px' }}
-                        />
-                    ))}
+                    <div key={movie.id} className="flip-card">
+                        <div className="flip-card-inner">
+                            <div className="flip-card-front"> 
+                                <img
+                                key = {movie.id}
+                                src = {movie.url}
+                                style={{ width: '300px', margin: '10px' }}
+                                />
+                            </div>
+                            <div className="flip-card-back"> 
+                                <p>{movie.name}</p>
+                                <p>{movie.year}</p>
+                                <p>{movie.director}</p>
+                                <p>{movie.cast.join(', ')}</p>
+                            </div>
+                        </div>  
+                    </div> 
+                    ))}   
                 </div>
             </TabPanel>
         </TabContext>
