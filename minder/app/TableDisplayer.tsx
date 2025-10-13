@@ -1,7 +1,6 @@
 "use client";
 
-import { useDispatch, useSelector } from "react-redux"
-import { DataGrid, GridColDef } from '@mui/x-data-grid'
+import { useSelector } from "react-redux"
 import { useState } from "react"
 import { TabContext, TabList, TabPanel } from "@mui/lab"
 import Tab from '@mui/material/Tab';
@@ -18,25 +17,19 @@ const graph: React.FC = () => {
         setValue(newValue);
     };
 
-    const columns: GridColDef[] = [
-        {field: 'name', headerName: "Name"},
-        {field: 'director', headerName: "Director"},
-        {field: 'cast', headerName: "Cast"},
-        {field: 'year', headerName: "Year"},
-        {field: 'desc', headerName: "Description"}
-    ]
+    
     return(
         <>
         <TabContext value={tabValue}>
-            <Box sx={{borderBottom: 1, borderColor: 'white', backgroundColor: 'white'}}>
-                <TabList onChange={handleChange} aria-label="Tabs" sx={{backgroundColor: 'white'}}>
+            <Box sx={{borderBottom: 1, borderColor: 'white', backgroundColor: 'white', p: 0, m: 0}}>
+                <TabList onChange={handleChange} aria-label="Tabs" sx={{backgroundColor: 'white', p: 0, m: 0, minHeight: 'auto'}}>
                     <Tab label="Me Likey" value="1" color='white'/>
                     <Tab label="Me No Likey" value="2" color='white'/>
                     <Tab label="Seen it" value="3" color='white'/>
                 </TabList>
             </Box>
             <TabPanel value="1">
-                <div className="movieDisplay">
+                    <div className="movieDisplay">
                     {yes.map((movie: MovieType) => (
                     <div key={movie.id} className="flip-card">
                         <div className="flip-card-inner">
@@ -50,8 +43,8 @@ const graph: React.FC = () => {
                             <div className="flip-card-back"> 
                                 <p>{movie.name}</p>
                                 <p>{movie.year}</p>
-                                <p>{movie.director}</p>
-                                <p>{movie.cast}</p>
+                                <p>{"Director: " + movie.director}</p>
+                                <p>{"Cast:" + movie.cast.join(', ')}</p>
                             </div>
                         </div>  
                     </div> 
@@ -73,8 +66,8 @@ const graph: React.FC = () => {
                             <div className="flip-card-back"> 
                                 <p>{movie.name}</p>
                                 <p>{movie.year}</p>
-                                <p>{movie.director}</p>
-                                <p>{movie.cast}</p>
+                                <p>{"Director: " + movie.director}</p>
+                                <p>{"Cast: " + movie.cast.join(', ')}</p>
                             </div>
                         </div>  
                     </div> 
@@ -96,8 +89,8 @@ const graph: React.FC = () => {
                             <div className="flip-card-back"> 
                                 <p>{movie.name}</p>
                                 <p>{movie.year}</p>
-                                <p>{movie.director}</p>
-                                <p>{movie.cast.join(', ')}</p>
+                                <p>{"Director: " + movie.director}</p>
+                                <p>{"Cast:" + movie.cast.join(', ')}</p>
                             </div>
                         </div>  
                     </div> 

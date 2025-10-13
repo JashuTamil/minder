@@ -14,7 +14,7 @@ const App: React.FC  = () => {
 
    return (
     <div
-      className="grid h-[400px] w-full place-items-center"
+      className="grid h-[400px] w-full place-items-center gap-5"
     >
       {movies.map((movie: MovieType) => {
         return (
@@ -29,9 +29,15 @@ const App: React.FC  = () => {
       })}
 
       {movies.length > 0 ? (
-        <p className="text-xl font-bold"> Name: {movies[movies.length - 1].name}</p>
+        <ul className="text-center">
+          <li className="text-l"> {movies[movies.length - 1].name}</li>
+          <li className="text-l"> Director: {movies[movies.length - 1].director}</li>
+          <li className="text-l"> {movies[movies.length - 1].year}</li>
+          <li className="text-l"> Cast: {movies[movies.length - 1].cast.join(', ')}</li>
+        </ul>
+        
       ) : (
-        <p className="text-xl font-bold">No more cards</p>
+        <p className="text-2xl font-bold">No more cards</p>
       )}
     </div>
   );
