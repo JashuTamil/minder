@@ -11,6 +11,13 @@ import MovieDisplayer from "./MovieDisplayer";
 // Step 7.5: Clean up the watchlist page. Get it into separate little sections and output the pictures and make them flippable...(like the first time). On the other side should be all the information
 // Step 8: Clean up the actual UI of what you have so far. This will be the most difficult part!
 
+// Step 9: Try to push all the data to a database now and see how that works
+// Step 10: Generate recommendations for movies after the list is empty
+// Step 11: Store recommendations locally/in db until it's gone?
+// Step 12: ML algo to try and see if you can get it up and running (use the link to kaggle)
+// Step 13: Replace generation with ML algo and see how that works
+// Step 14: On startup of application, the algorithm will pull all the films from the db and try and spin it up...that's the end goal!
+
 // Step ?: Add a review section that allows the user to look up a film and add a review
 // Step ? + 1: Add user authentication and profiles
 
