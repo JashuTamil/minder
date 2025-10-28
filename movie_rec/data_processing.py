@@ -3,6 +3,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.metrics.pairwise import cosine_similarity
 import scipy.sparse as sp
+import numpy as np
 import json
 import pathlib
 
@@ -40,8 +41,14 @@ def build_user_profile(features, movies, feedback, alpha=0.5):
     liked = feedback["likes"]
     disliked = feedback['dislikes']
 
-    f_like = features[movies['id'].isin(liked)].mean(axis=0) if liked else 0
-    f_dislike = features[movies['id'].isin(disliked)].mean(axis=0) if disliked else 0
+    features_csr = features.tocsr()
+
+    liked_ind = movies[movies['id'].isin(liked)].index if liked else []
+    disliked_ind = movies[movies['id'].isin(disliked)].index if disliked else []
+ 
+
+    f_like = np.asarray(features_csr[liked_ind].mean(axis=0)) if liked_ind.any() else 0
+    f_dislike = np.asarray(features_csr[disliked_ind].mean(axis=0)) if disliked_ind.any() else 0
 
     if isinstance(f_like, int) and f_like == 0:
         return None
@@ -54,5 +61,5 @@ def recommend_movies(features, movies, user_vector, feedback, top_n = 10):
     movies['score'] = sims.flatten()
 
     seen = set(feedback['likes'] + feedback['dislikes'])
-    recs = movies[~movies['id'].isin(seen)].sort_values('scores', ascending=False)
-    return recs[['title', 'score', 'vote_average']]
+    recs = movies[~movies['id'].isin(seen)].sort_values('score', ascending=False)
+    return recs[['id', 'title', 'score', 'vote_average']]
