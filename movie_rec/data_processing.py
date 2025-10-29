@@ -22,8 +22,19 @@ def build_features(movies):
 
     tfidf = TfidfVectorizer(stop_words='english', max_features=5000)
     overview_features = tfidf.fit_transform(movies['overview'])
+    
+    C = movies['vote_average'].mean()
+    m = movies['vote_count'].quantile(0.5)
+    movies['weighted_rating'] = (
+        (movies['vote_count'] / (movies['vote_count'] + m)) * movies['vote_average'] + 
+        (m / (movies['vote_count'] + m)) * C
+    )
 
-    features = sp.hstack([genre_features, overview_features])
+    rating_normalized = (movies['weighted_rating'] - movies['weighted_rating'].min()) / \
+                       (movies['weighted_rating'].max() - movies['weighted_rating'].min())
+    rating_features = sp.csr_matrix(rating_normalized.values.reshape(-1, 1))
+
+    features = sp.hstack([genre_features, overview_features, rating_features])
     return features, tfidf, mlb
 
 def load_feedback():
@@ -56,10 +67,36 @@ def build_user_profile(features, movies, feedback, alpha=0.5):
     user_vector = f_like - (alpha * f_dislike)
     return user_vector
 
-def recommend_movies(features, movies, user_vector, feedback, top_n = 10):
+
+def exploratory_rec(movies, feedback, top_n):
+    seen = set(feedback['likes'] + feedback['dislikes'])
+    available_movies = movies[~movies['id'].isin(seen)]
+
+    user_liked_movies = movies[movies['id'].isin(feedback['likes'])]
+    user_genres = set()
+    for genres_list in user_liked_movies['genres']:
+        user_genres.update(genres_list)
+    
+    unexplored_movies = available_movies[available_movies['genres'].apply(lambda x: len(set(x) - user_genres) > 0)]
+
+    if len(unexplored_movies) > 0:
+        return unexplored_movies.sort_values('score', ascending=False)[:top_n]
+    else:
+        return available_movies.sort_values('score', ascending=False)[:top_n]
+    
+def exploitative_rec(movies, feedback, top_n):
+    seen = set(feedback['likes'] + feedback['dislikes'])
+    return movies[~movies['id'].isin(seen)].sort_values('score', ascending=False)[:top_n]
+
+def recommend_movies(features, movies, user_vector, feedback, exploration_rate = .4, top_n = 10):
     sims = cosine_similarity(features, user_vector)
     movies['score'] = sims.flatten()
 
-    seen = set(feedback['likes'] + feedback['dislikes'])
-    recs = movies[~movies['id'].isin(seen)].sort_values('score', ascending=False)
-    return recs[['id', 'title', 'score', 'vote_average']]
+    if np.random.random() < exploration_rate:
+        recs = exploratory_rec(movies, feedback, 1000)
+        recs['recommendation_type'] = 'exploration'
+    else:
+        recs = exploitative_rec(movies, feedback, 1000)
+        recs['recommendation_type'] = 'exploitation'
+
+    return recs
