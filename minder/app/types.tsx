@@ -12,3 +12,8 @@ export type idxProp = {
     name: string;
     position: number;
 }
+
+export type feedbackProp = {
+    likes: Array<string>;
+    dislikes: Array<string>;
+}

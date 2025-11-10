@@ -1,14 +1,18 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import { idxProp, MovieType } from "@/app/types";
+import { GET } from '@/app/api/feedback/routes';
+import { NextResponse } from 'next/server';
 
 interface InputHandlingState {
     movies: MovieType[],
     yes: MovieType[],
     no: MovieType[],
     seen: MovieType[],
+    example: any | null
 }
 const setSeen = createAction<string>('inputHandling/setSeen')
 const setIdx = createAction<idxProp>('inputHandling/setIdx')
+const setExample = createAction<any>('inputHandling/setExample')
 
 const initialState = { movies: [{
         id: 1,
@@ -36,7 +40,7 @@ const initialState = { movies: [{
         year: 2014,
         description: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
         url: "https://www.movieposters.com/cdn/shop/files/interstellar-139400.jpg?v=1708527834&width=1680"
-    }], yes: [], no: [], seen: [] } satisfies InputHandlingState as InputHandlingState
+    }], yes: [], no: [], seen: [], example: GET() } satisfies InputHandlingState as InputHandlingState
 
     export const inputHandlingReducer = createReducer(initialState, (builder) => {
         builder
@@ -58,5 +62,8 @@ const initialState = { movies: [{
             else if (movie) {
                 state.no.push(movie)
             }
+         })
+         .addCase(setExample, (state, action) => {
+            state.example = action.payload
          })
     })
