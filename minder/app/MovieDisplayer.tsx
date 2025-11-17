@@ -20,7 +20,8 @@ const App: React.FC = () => {
 
     const fetchExample = async () => {
         const response = await GET();
-        dispatch(setExample(response));
+        const data = await response.json();
+        dispatch(setExample(data.message));
     }
 
     useEffect(() => {
@@ -61,7 +62,7 @@ const App: React.FC = () => {
         </ul>
         
       ) : (
-        <p className="text-2xl font-bold">{example['message']}</p>
+        <p className="text-2xl font-bold">{example}</p>
       )}
     </div>
   );

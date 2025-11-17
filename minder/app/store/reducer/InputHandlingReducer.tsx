@@ -40,7 +40,7 @@ const initialState = { movies: [{
         year: 2014,
         description: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
         url: "https://www.movieposters.com/cdn/shop/files/interstellar-139400.jpg?v=1708527834&width=1680"
-    }], yes: [], no: [], seen: [], example: GET() } satisfies InputHandlingState as InputHandlingState
+    }], yes: [], no: [], seen: [], example: null } satisfies InputHandlingState as InputHandlingState
 
     export const inputHandlingReducer = createReducer(initialState, (builder) => {
         builder
