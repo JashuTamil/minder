@@ -1,41 +1,15 @@
 "use client";
 
-import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { MovieType } from "./types";
-import { GET } from "./api/feedback/routes";
-
-
-
 
 const App: React.FC = () => {
 
     const dispatch = useDispatch()
     const movies = useSelector((state: any) => state.movies)
-    const example = useSelector((state: any) => state.example)
     const setMovies = (name: string, position: number) => {dispatch({type:'inputHandling/setIdx', payload: {name, position}})}
     const setSeen = (name: string) => {dispatch({type:'inputHandling/setSeen', payload: name})}
-    const setExample = (example: any) => ({type:'inputHandling/setExample', payload: example})
-
-    const fetchExample = async () => {
-        const response = await GET();
-        const data = await response.json();
-        dispatch(setExample(data.message));
-    }
-
-    useEffect(() => {
-      fetchExample();
-    }, [dispatch])
-
-
-    console.log("=== DEBUG INFO ===")
-    console.log("Movies array:", movies)
-    console.log("Movies length:", movies.length)
-    console.log("Example data:", example)
-    console.log("Should show message?", movies.length === 0)
-    console.log("Example message:", example?.message)
-    console.log("===================")
 
    return (
     <div
@@ -62,7 +36,7 @@ const App: React.FC = () => {
         </ul>
         
       ) : (
-        <p className="text-2xl font-bold">{example}</p>
+        <p className="text-2xl font-bold">No more movies :|</p>
       )}
     </div>
   );

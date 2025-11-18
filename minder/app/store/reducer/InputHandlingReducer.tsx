@@ -8,14 +8,38 @@ interface InputHandlingState {
     yes: MovieType[],
     no: MovieType[],
     seen: MovieType[],
-    example: any | null
+    loading: boolean,
+    error: string | null
 }
 const setSeen = createAction<string>('inputHandling/setSeen')
 const setIdx = createAction<idxProp>('inputHandling/setIdx')
-const setExample = createAction<any>('inputHandling/setExample')
+
+const fetchFeedbackStart = createAction('inputHandling/fetchFeedbackStart')
+const fetchFeedbackSuccess = createAction<{ likes?: MovieType[], dislikes?: MovieType[] }>('inputHandling/fetchFeedbackSuccess')
+const fetchFeedbackFailure = createAction<string>('inputHandling/fetchFeedbackFailure')
+
+export const fetchFeedback = () => async (dispatch: any) => {
+    dispatch(fetchFeedbackStart());
+
+    try{
+        const response = await fetch('api/feedback')
+
+        if (!response.ok){
+            const errorData = await response.json()
+            throw new Error((errorData as any).error || "Failed to fetch feedback.")
+        }
+
+        const feedbackData = await response.json() as { likes?: MovieType[] }
+        dispatch(fetchFeedbackSuccess(feedbackData))
+    }
+
+    catch (error) {
+        dispatch(fetchFeedbackFailure(error instanceof Error ? error.message : 'Unknown error'))
+    }
+}
 
 const initialState = { movies: [{
-        id: 1,
+        id: 27205,
         name: "Inception",
         director: "Christopher Nolan",
         cast: ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"],
@@ -24,7 +48,7 @@ const initialState = { movies: [{
         url: "https://www.movieposters.com/cdn/shop/files/inception.mpw.123395_9e0000d1-bc7f-400a-b488-15fa9e60a10c.jpg?v=1708527589&width=1680"
     },
     {
-        id: 2,
+        id: 603,
         name: "The Matrix",
         director: "The Wachowskis",
         cast: ["Keanu Reeves", "Laurence Fishburne", "Carrie-Anne Moss"],
@@ -33,14 +57,14 @@ const initialState = { movies: [{
         url: "https://www.movieposters.com/cdn/shop/files/Matrix.mpw.102176_bb2f6cc5-4a16-4512-881b-f855ead3c8ec.jpg?v=1708703624&width=1680"
     },
     {
-        id: 3,
+        id: 157336,
         name: "Interstellar",
         director: "Christopher Nolan",
         cast: ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain"],
         year: 2014,
         description: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
         url: "https://www.movieposters.com/cdn/shop/files/interstellar-139400.jpg?v=1708527834&width=1680"
-    }], yes: [], no: [], seen: [], example: null } satisfies InputHandlingState as InputHandlingState
+    }], yes: [], no: [], seen: [], loading: false, error: null } satisfies InputHandlingState as InputHandlingState
 
     export const inputHandlingReducer = createReducer(initialState, (builder) => {
         builder
@@ -63,7 +87,13 @@ const initialState = { movies: [{
                 state.no.push(movie)
             }
          })
-         .addCase(setExample, (state, action) => {
-            state.example = action.payload
+         .addCase(fetchFeedbackSuccess, (state, action) => {
+            state.loading = false;
+            state.yes = action.payload.likes || []
+            state.no = action.payload.dislikes || []
+         })
+         .addCase(fetchFeedbackFailure, (state, action) => {
+            state.loading = false
+            state.error = action.payload
          })
     })
