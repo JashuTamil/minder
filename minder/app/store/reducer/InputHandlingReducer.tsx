@@ -22,7 +22,7 @@ export const fetchFeedback = () => async (dispatch: any) => {
     dispatch(fetchFeedbackStart());
 
     try{
-        const response = await fetch('api/feedback')
+        const response = await GET()
 
         if (!response.ok){
             const errorData = await response.json()

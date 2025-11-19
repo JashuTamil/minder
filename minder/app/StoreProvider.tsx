@@ -3,11 +3,13 @@
 import { useRef } from 'react'
 import { Provider, useDispatch, useSelector, useStore } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
-import { inputHandlingReducer } from './store/reducer/InputHandlingReducer'
+import { fetchFeedback, inputHandlingReducer } from './store/reducer/InputHandlingReducer'
 
 export const makeStore = () => configureStore({
    reducer: inputHandlingReducer,
 });
+
+makeStore().dispatch(fetchFeedback() as any)
 
 export type AppStore = ReturnType<typeof makeStore>
 export type RootState = ReturnType<AppStore['getState']>
