@@ -29,7 +29,7 @@ export const fetchFeedback = () => async (dispatch: any) => {
             throw new Error((errorData as any).error || "Failed to fetch feedback.")
         }
 
-        const feedbackData = await response.json() as { likes?: MovieType[] }
+        const feedbackData = await response.json()
         dispatch(fetchFeedbackSuccess(feedbackData))
     }
 
@@ -90,7 +90,13 @@ const initialState = { movies: [{
          .addCase(fetchFeedbackSuccess, (state, action) => {
             state.loading = false;
             state.yes = action.payload.likes || []
+            console.log(state.yes)
+            console.log(action.payload.likes)
+            console.log(typeof action.payload.likes)
             state.no = action.payload.dislikes || []
+            console.log(state.no)
+            console.log(typeof action.payload.likes)
+            console.log(action.payload.dislikes)
          })
          .addCase(fetchFeedbackFailure, (state, action) => {
             state.loading = false

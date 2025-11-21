@@ -17,3 +17,8 @@ export type feedbackProp = {
     likes: Array<string>;
     dislikes: Array<string>;
 }
+
+export type FeedbackType = {
+    likes: MovieType[];
+    dislikes: MovieType[];
+}
