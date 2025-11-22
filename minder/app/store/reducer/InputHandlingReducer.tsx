@@ -1,5 +1,5 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
-import { idxProp, MovieType } from "@/app/types";
+import { FeedbackType, idxProp, MovieType } from "@/app/types";
 import { GET } from '@/app/api/feedback/routes';
 import { NextResponse } from 'next/server';
 
@@ -15,7 +15,7 @@ const setSeen = createAction<string>('inputHandling/setSeen')
 const setIdx = createAction<idxProp>('inputHandling/setIdx')
 
 const fetchFeedbackStart = createAction('inputHandling/fetchFeedbackStart')
-const fetchFeedbackSuccess = createAction<{ likes?: MovieType[], dislikes?: MovieType[] }>('inputHandling/fetchFeedbackSuccess')
+const fetchFeedbackSuccess = createAction<{ likes: MovieType[], dislikes: MovieType[] }>('inputHandling/fetchFeedbackSuccess')
 const fetchFeedbackFailure = createAction<string>('inputHandling/fetchFeedbackFailure')
 
 export const fetchFeedback = () => async (dispatch: any) => {
@@ -29,7 +29,7 @@ export const fetchFeedback = () => async (dispatch: any) => {
             throw new Error((errorData as any).error || "Failed to fetch feedback.")
         }
 
-        const feedbackData = await response.json()
+        const feedbackData: FeedbackType = await response.json()
         dispatch(fetchFeedbackSuccess(feedbackData))
     }
 
@@ -82,18 +82,20 @@ const initialState = { movies: [{
 
             if (action.payload.position > 100 && movie) {
                 state.yes.push(movie)
+                console.log(state.yes)
             }
             else if (movie) {
                 state.no.push(movie)
+                console.log(state.no)
             }
          })
          .addCase(fetchFeedbackSuccess, (state, action) => {
             state.loading = false;
-            state.yes = action.payload.likes || []
+            state.yes = action.payload.likes
             console.log(state.yes)
             console.log(action.payload.likes)
             console.log(typeof action.payload.likes)
-            state.no = action.payload.dislikes || []
+            state.no = action.payload.dislikes
             console.log(state.no)
             console.log(typeof action.payload.likes)
             console.log(action.payload.dislikes)

@@ -10,7 +10,7 @@ export async function GET() {
             throw new Error(`External API responded with status: ${response.status}`);
         }
 
-        const data = await response.json() as FeedbackType
+        const data = await response.json()
         return NextResponse.json(data)
     }
     catch(error){
