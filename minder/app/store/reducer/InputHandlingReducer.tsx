@@ -24,13 +24,22 @@ export const fetchFeedback = () => async (dispatch: any) => {
     try{
         const response = await GET()
 
+
         if (!response.ok){
             const errorData = await response.json()
             throw new Error((errorData as any).error || "Failed to fetch feedback.")
         }
 
-        const feedbackData: FeedbackType = await response.json()
-        dispatch(fetchFeedbackSuccess(feedbackData))
+        const data = await response.json()
+        
+        const finalData: FeedbackType = data as FeedbackType
+        console.log("API Response:", finalData)
+        console.log("Type of data:", typeof finalData)
+        console.log("Type of likes:", typeof finalData.likes)
+        console.log("First like item:", finalData.likes[0])
+        console.log("Type of first like:", typeof finalData.likes[0])
+
+        dispatch(fetchFeedbackSuccess(finalData))
     }
 
     catch (error) {
