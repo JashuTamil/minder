@@ -1,5 +1,6 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
-import { FeedbackType, idxProp, MovieType } from "@/app/types";
+import { z } from 'zod'
+import { FeedbackType, idxProp, MovieType, FeedbackSchema } from "@/app/types";
 import { GET } from '@/app/api/feedback/routes';
 import { NextResponse } from 'next/server';
 
@@ -29,17 +30,26 @@ export const fetchFeedback = () => async (dispatch: any) => {
             const errorData = await response.json()
             throw new Error((errorData as any).error || "Failed to fetch feedback.")
         }
-
         const data = await response.json()
+        console.log("API Response:", data)
+        console.log("Type of data:", typeof data)
+        console.log("Type of likes:", typeof data.likes)
+        console.log("First like item:", data.likes[0])
+        console.log("Type of first like:", typeof data.likes[0])
+        console.log("Type of first like:", typeof data.likes[0])
         
-        const finalData: FeedbackType = data as FeedbackType
+        const finalData = z.object(FeedbackSchema).parse(data)
+        const likes = finalData.likes as MovieType[]
+        const dislikes = finalData.dislikes as MovieType[]
+
         console.log("API Response:", finalData)
         console.log("Type of data:", typeof finalData)
-        console.log("Type of likes:", typeof finalData.likes)
+        console.log("Type of likes:", typeof likes)
         console.log("First like item:", finalData.likes[0])
         console.log("Type of first like:", typeof finalData.likes[0])
+        console.log("Type of first like:", typeof finalData.likes[0])
 
-        dispatch(fetchFeedbackSuccess(finalData))
+        dispatch(fetchFeedbackSuccess({likes, dislikes}))
     }
 
     catch (error) {

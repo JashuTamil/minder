@@ -9,7 +9,9 @@ import { MovieType } from "./types";
 
 const graph: React.FC = () => {
     const yes = useSelector((state: any) => state.yes)
+    console.log(yes)
     const no = useSelector((state: any) => state.no)
+    console.log(no)
     const seen = useSelector((state: any) => state.seen)
     const [tabValue, setValue] = useState("1");
 

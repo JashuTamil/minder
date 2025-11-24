@@ -1,12 +1,4 @@
-export type MovieType = {
-    id: number
-    name: string;
-    director: string;
-    cast: string[];
-    year: number;
-    description: string;
-    url: string
-}
+import { z } from 'zod'
 
 export type idxProp = {
     name: string;
@@ -18,7 +10,20 @@ export type feedbackProp = {
     dislikes: Array<string>;
 }
 
-export type FeedbackType = {
-    likes: MovieType[];
-    dislikes: MovieType[];
+export const MovieSchema = z.object({
+    id: z.number(),
+    name: z.string(),
+    director: z.string(),
+    cast: z.array(z.string()),
+    year: z.number(),
+    description: z.string(),
+    url: z.string()
+})
+
+export const FeedbackSchema = {
+    likes: z.array(MovieSchema),
+    dislikes: z.array(MovieSchema)
 }
+
+export type MovieType = z.infer<typeof MovieSchema>
+export type FeedbackType = z.infer<typeof FeedbackSchema>

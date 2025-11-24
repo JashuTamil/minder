@@ -11,7 +11,8 @@ export async function GET() {
         }
 
         const data = await response.json()
-        return NextResponse.json(data)
+        const returnData = JSON.parse(data)
+        return NextResponse.json(returnData)
     }
     catch(error){
         console.error("Error fetching from backend:", error)
