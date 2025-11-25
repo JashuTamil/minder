@@ -1,7 +1,7 @@
 "use client";
 
 import { useSelector } from "react-redux"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { TabContext, TabList, TabPanel } from "@mui/lab"
 import Tab from '@mui/material/Tab';
 import { Box } from "@mui/material";
@@ -9,19 +9,17 @@ import { MovieType } from "./types";
 
 const graph: React.FC = () => {
     const yes = useSelector((state: any) => state.yes)
-    console.log(yes)
     const no = useSelector((state: any) => state.no)
-    console.log(no)
     const seen = useSelector((state: any) => state.seen)
     const [tabValue, setValue] = useState("1");
+
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
         setValue(newValue);
     };
 
-    
-    return(
-        <>
+        return(
+            <>
         <TabContext value={tabValue}>
             <Box sx={{borderBottom: 1, borderColor: 'white', backgroundColor: 'white', p: 0, m: 0}}>
                 <TabList onChange={handleChange} aria-label="Tabs" sx={{backgroundColor: 'white', p: 0, m: 0, minHeight: 'auto'}}>

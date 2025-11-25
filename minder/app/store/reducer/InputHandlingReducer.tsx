@@ -31,25 +31,10 @@ export const fetchFeedback = () => async (dispatch: any) => {
             throw new Error((errorData as any).error || "Failed to fetch feedback.")
         }
         const data = await response.json()
-        console.log("API Response:", data)
-        console.log("Type of data:", typeof data)
-        console.log("Type of likes:", typeof data.likes)
-        console.log("First like item:", data.likes[0])
-        console.log("Type of first like:", typeof data.likes[0])
-        console.log("Type of first like:", typeof data.likes[0])
         
         const finalData = z.object(FeedbackSchema).parse(data)
-        const likes = finalData.likes as MovieType[]
-        const dislikes = finalData.dislikes as MovieType[]
 
-        console.log("API Response:", finalData)
-        console.log("Type of data:", typeof finalData)
-        console.log("Type of likes:", typeof likes)
-        console.log("First like item:", finalData.likes[0])
-        console.log("Type of first like:", typeof finalData.likes[0])
-        console.log("Type of first like:", typeof finalData.likes[0])
-
-        dispatch(fetchFeedbackSuccess({likes, dislikes}))
+        dispatch(fetchFeedbackSuccess(finalData))
     }
 
     catch (error) {
@@ -110,14 +95,16 @@ const initialState = { movies: [{
          })
          .addCase(fetchFeedbackSuccess, (state, action) => {
             state.loading = false;
-            state.yes = action.payload.likes
+            action.payload.likes.map((movie: MovieType) => {
+                state.yes.push(movie)
+            })
+            console.log(typeof state.yes)
             console.log(state.yes)
-            console.log(action.payload.likes)
-            console.log(typeof action.payload.likes)
-            state.no = action.payload.dislikes
+            action.payload.dislikes.map((movie: MovieType) => {
+                state.no.push(movie)
+            })
+            console.log(typeof state.no)
             console.log(state.no)
-            console.log(typeof action.payload.likes)
-            console.log(action.payload.dislikes)
          })
          .addCase(fetchFeedbackFailure, (state, action) => {
             state.loading = false
