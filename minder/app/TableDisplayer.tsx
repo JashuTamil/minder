@@ -45,6 +45,9 @@ const graph: React.FC = () => {
                                 <p>{movie.year}</p>
                                 <p>{"Director: " + movie.director}</p>
                                 <p>{"Cast:" + movie.cast.join(', ')}</p>
+                                <p>{"Description: " + movie.description}</p>
+                                <p>{"Runtime: " + movie.runtime}</p>
+                                <p> {"Rating: " + movie.rating}</p>
                             </div>
                         </div>  
                     </div> 
@@ -67,7 +70,10 @@ const graph: React.FC = () => {
                                 <p>{movie.name}</p>
                                 <p>{movie.year}</p>
                                 <p>{"Director: " + movie.director}</p>
-                                <p>{"Cast: " + movie.cast.join(', ')}</p>
+                                <p>{"Cast:" + movie.cast.join(', ')}</p>
+                                <p>{"Description: " + movie.description}</p>
+                                <p>{"Runtime: " + movie.runtime}</p>
+                                <p> {"Rating: " + movie.rating}</p>
                             </div>
                         </div>  
                     </div> 
@@ -91,6 +97,9 @@ const graph: React.FC = () => {
                                 <p>{movie.year}</p>
                                 <p>{"Director: " + movie.director}</p>
                                 <p>{"Cast:" + movie.cast.join(', ')}</p>
+                                <p>{"Description: " + movie.description}</p>
+                                <p>{"Runtime: " + movie.runtime}</p>
+                                <p> {"Rating: " + movie.rating}</p>
                             </div>
                         </div>  
                     </div> 

@@ -33,6 +33,9 @@ const App: React.FC = () => {
           <li className="text-l"> Director: {movies[movies.length - 1].director}</li>
           <li className="text-l"> {movies[movies.length - 1].year}</li>
           <li className="text-l"> Cast: {movies[movies.length - 1].cast.join(', ')}</li>
+          <li className="text-l"> Description: {movies[movies.length-1].description}</li>
+          <li className="text-l"> Runtime: + {movies[movies.length-1].runtime}</li>
+          <li className="text-l"> Rating: + {movies[movies.length-1].rating}</li>
         </ul>
         
       ) : (

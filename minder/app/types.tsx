@@ -17,7 +17,9 @@ export const MovieSchema = z.object({
     cast: z.array(z.string()),
     year: z.number(),
     description: z.string(),
-    url: z.string()
+    url: z.string(),
+    runtime: z.number(),
+    rating: z.float32()
 })
 
 export const FeedbackSchema = {
