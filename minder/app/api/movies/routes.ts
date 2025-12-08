@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export async function GET() {
     try{
         
-        const response = await fetch('http://localhost:8000/api/v1/get/get_feedback')
+        const response = await fetch('http://localhost:8000/api/v1/get/get_movies')
 
         if (!response.ok) {
             throw new Error(`External API responded with status: ${response.status}`);

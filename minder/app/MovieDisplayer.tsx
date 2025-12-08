@@ -21,21 +21,21 @@ const App: React.FC = () => {
             key={movie.id}
             setMovies={setMovies}
             setSeen={setSeen}
-            name={movie.name}
-            url={movie.url}
+            name={movie.title}
+            url={movie.poster_path}
           />
         );
       })}
 
       {movies.length > 0 ? (
         <ul className="text-center">
-          <li className="text-l"> {movies[movies.length - 1].name}</li>
+          <li className="text-l"> {movies[movies.length - 1].title}</li>
           <li className="text-l"> Director: {movies[movies.length - 1].director}</li>
-          <li className="text-l"> {movies[movies.length - 1].year}</li>
-          <li className="text-l"> Cast: {movies[movies.length - 1].cast.join(', ')}</li>
-          <li className="text-l"> Description: {movies[movies.length-1].description}</li>
-          <li className="text-l"> Runtime: + {movies[movies.length-1].runtime}</li>
-          <li className="text-l"> Rating: + {movies[movies.length-1].rating}</li>
+          <li className="text-l"> {movies[movies.length - 1].release_date}</li>
+          <li className="text-l"> Cast: {movies[movies.length - 1].cast}</li>
+          <li className="text-l"> Description: {movies[movies.length-1].overview}</li>
+          <li className="text-l"> Runtime: {movies[movies.length-1].runtime} minutes</li>
+          <li className="text-l"> Rating: {movies[movies.length-1].vote_average}/10</li>
         </ul>
         
       ) : (

@@ -1,7 +1,7 @@
 "use client";
 
 import { useSelector } from "react-redux"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { TabContext, TabList, TabPanel } from "@mui/lab"
 import Tab from '@mui/material/Tab';
 import { Box } from "@mui/material";
@@ -36,18 +36,18 @@ const graph: React.FC = () => {
                             <div className="flip-card-front"> 
                                 <img
                                 key = {movie.id}
-                                src = {movie.url}
+                                src = {movie.poster_path}
                                 style={{ width: '300px', margin: '10px' }}
                                 />
                             </div>
                             <div className="flip-card-back"> 
-                                <p>{movie.name}</p>
+                                <p>{movie.title}</p>
                                 <p>{movie.year}</p>
                                 <p>{"Director: " + movie.director}</p>
-                                <p>{"Cast:" + movie.cast.join(', ')}</p>
-                                <p>{"Description: " + movie.description}</p>
+                                <p>{"Cast:" + movie.cast}</p>
+                                <p>{"Description: " + movie.overview}</p>
                                 <p>{"Runtime: " + movie.runtime}</p>
-                                <p> {"Rating: " + movie.rating}</p>
+                                <p> {"Rating: " + movie.vote_average}</p>
                             </div>
                         </div>  
                     </div> 
@@ -62,18 +62,18 @@ const graph: React.FC = () => {
                             <div className="flip-card-front"> 
                                 <img
                                 key = {movie.id}
-                                src = {movie.url}
+                                src = {movie.poster_path}
                                 style={{ width: '300px', margin: '10px' }}
                                 />
                             </div>
                             <div className="flip-card-back"> 
-                                <p>{movie.name}</p>
+                                <p>{movie.title}</p>
                                 <p>{movie.year}</p>
                                 <p>{"Director: " + movie.director}</p>
-                                <p>{"Cast:" + movie.cast.join(', ')}</p>
-                                <p>{"Description: " + movie.description}</p>
+                                <p>{"Cast:" + movie.cast}</p>
+                                <p>{"Description: " + movie.overview}</p>
                                 <p>{"Runtime: " + movie.runtime}</p>
-                                <p> {"Rating: " + movie.rating}</p>
+                                <p> {"Rating: " + movie.vote_average}</p>
                             </div>
                         </div>  
                     </div> 
@@ -88,18 +88,18 @@ const graph: React.FC = () => {
                             <div className="flip-card-front"> 
                                 <img
                                 key = {movie.id}
-                                src = {movie.url}
+                                src = {movie.poster_path}
                                 style={{ width: '300px', margin: '10px' }}
                                 />
                             </div>
                             <div className="flip-card-back"> 
-                                <p>{movie.name}</p>
+                                <p>{movie.title}</p>
                                 <p>{movie.year}</p>
                                 <p>{"Director: " + movie.director}</p>
-                                <p>{"Cast:" + movie.cast.join(', ')}</p>
-                                <p>{"Description: " + movie.description}</p>
-                                <p>{"Runtime: " + movie.runtime}</p>
-                                <p> {"Rating: " + movie.rating}</p>
+                                <p>{"Cast:" + movie.cast}</p>
+                                <p>{"Description: " + movie.overview}</p>
+                                <p>{"Runtime: " + movie.runtime + " minutes"}</p>
+                                <p> {"Rating: " + movie.vote_average + "/10"}</p>
                             </div>
                         </div>  
                     </div> 

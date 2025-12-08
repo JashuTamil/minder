@@ -12,14 +12,14 @@ export type feedbackProp = {
 
 export const MovieSchema = z.object({
     id: z.number(),
-    name: z.string(),
-    director: z.string(),
-    cast: z.array(z.string()),
-    year: z.number(),
-    description: z.string(),
-    url: z.string(),
+    title: z.string(),
+    overview: z.string(),
+    vote_average: z.float32(),
     runtime: z.number(),
-    rating: z.float32()
+    poster_path: z.string(),
+    cast: z.string(),
+    director: z.string(),
+    year: z.number()
 })
 
 export const FeedbackSchema = {
