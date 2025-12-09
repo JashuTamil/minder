@@ -3,12 +3,13 @@
 import { useRef } from 'react'
 import { Provider, useDispatch, useSelector, useStore } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
-import { fetchFeedback, inputHandlingReducer } from './store/reducer/InputHandlingReducer'
+import { fetchFeedback, fetchMovies, inputHandlingReducer } from './store/reducer/InputHandlingReducer'
 
 export const makeStore = () => {const store = configureStore({
    reducer: inputHandlingReducer,
 })
   store.dispatch(fetchFeedback())
+  store.dispatch(fetchMovies())
 
   return store
 };

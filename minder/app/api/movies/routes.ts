@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-export async function GET() {
+export async function GET_MOVIE_DATA() {
     try{
         
         const response = await fetch('http://localhost:8000/api/v1/get/get_movies')
@@ -10,8 +10,7 @@ export async function GET() {
         }
 
         const data = await response.json()
-        const returnData = JSON.parse(data)
-        return NextResponse.json(returnData)
+        return NextResponse.json(data)
     }
     catch(error){
         console.error("Error fetching from backend:", error)

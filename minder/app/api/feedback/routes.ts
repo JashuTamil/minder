@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-export async function GET() {
+export async function GET_USER_DATA() {
     try{
         
         const response = await fetch('http://localhost:8000/api/v1/get/get_feedback')
