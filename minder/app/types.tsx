@@ -19,7 +19,7 @@ export const MovieSchema = z.object({
     poster_path: z.string(),
     cast: z.string(),
     director: z.string(),
-    year: z.number()
+    release_date: z.string()
 })
 
 export const FeedbackSchema = {

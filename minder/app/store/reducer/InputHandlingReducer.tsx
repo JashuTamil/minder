@@ -1,6 +1,6 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import { z } from 'zod'
-import { idxProp, MovieType, FeedbackSchema, MovieSchema, GetMovieSchema } from "@/app/types";
+import { idxProp, MovieType, FeedbackSchema, MovieSchema } from "@/app/types";
 import { GET_USER_DATA } from '@/app/api/feedback/routes';
 import { GET_MOVIE_DATA } from '@/app/api/movies/routes';
 

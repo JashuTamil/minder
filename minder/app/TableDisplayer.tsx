@@ -42,7 +42,7 @@ const graph: React.FC = () => {
                             </div>
                             <div className="flip-card-back"> 
                                 <p>{movie.title}</p>
-                                <p>{movie.year}</p>
+                                <p>{movie.release_date}</p>
                                 <p>{"Director: " + movie.director}</p>
                                 <p>{"Cast:" + movie.cast}</p>
                                 <p>{"Description: " + movie.overview}</p>
@@ -68,7 +68,7 @@ const graph: React.FC = () => {
                             </div>
                             <div className="flip-card-back"> 
                                 <p>{movie.title}</p>
-                                <p>{movie.year}</p>
+                                <p>{movie.release_date}</p>
                                 <p>{"Director: " + movie.director}</p>
                                 <p>{"Cast:" + movie.cast}</p>
                                 <p>{"Description: " + movie.overview}</p>
@@ -94,7 +94,7 @@ const graph: React.FC = () => {
                             </div>
                             <div className="flip-card-back"> 
                                 <p>{movie.title}</p>
-                                <p>{movie.year}</p>
+                                <p>{movie.release_date}</p>
                                 <p>{"Director: " + movie.director}</p>
                                 <p>{"Cast:" + movie.cast}</p>
                                 <p>{"Description: " + movie.overview}</p>

@@ -3,13 +3,26 @@
 import { useDispatch, useSelector } from "react-redux";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { MovieType } from "./types";
+import { useAppDispatch, useAppSelector } from "./StoreProvider";
 
 const App: React.FC = () => {
 
-    const dispatch = useDispatch()
-    const movies = useSelector((state: any) => state.movies)
+    const dispatch = useAppDispatch()
+    const movies = useAppSelector((state: any) => state.movies)
+    const loading_movies = useAppSelector((state) => state.loading_movies)
+    const loading_user = useAppSelector((state) => state.loading_user)
+    const error = useAppSelector((state) => state.error)
+
     const setMovies = (name: string, position: number) => {dispatch({type:'inputHandling/setIdx', payload: {name, position}})}
     const setSeen = (name: string) => {dispatch({type:'inputHandling/setSeen', payload: name})}
+
+    if (loading_movies || loading_user) {
+      return <div className="grid h-[400px] w-full place-items-center">Loading movies...</div>;
+    }
+
+    if (error) {
+      return <div className="grid h-[400px] w-full place-items-center text-red-500">Error: {error}</div>;
+    }
 
    return (
     <div
