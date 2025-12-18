@@ -1,7 +1,7 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 import { z } from 'zod'
 import { idxProp, MovieType, FeedbackSchema, MovieSchema } from "@/app/types";
-import { GET_USER_DATA } from '@/app/api/feedback/routes';
+import { GET_USER_DATA, SEND_USER_DATA } from '@/app/api/feedback/routes';
 import { GET_MOVIE_DATA } from '@/app/api/movies/routes';
 
 interface InputHandlingState {
@@ -70,6 +70,27 @@ export const fetchMovies = () => async (dispatch: any) => {
     }
 }
 
+export const sendFeedback = ({likes, dislikes}: {likes: MovieType[], dislikes: MovieType[] }) => async () => {
+    const data = {likes, dislikes}
+    const request = new Request('https://dummy.com', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {'Content-Type': 'application/json'}
+    })
+
+    try{
+        const response = await SEND_USER_DATA(request)
+
+        if (!response.ok){
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Failed to send feedback.');
+        }
+    }
+    catch (error){
+        console.error('Error sending feedback:', error)
+    }
+}
+
 const initialState = { movies: [], yes: [], no: [], seen: [], loading_user: true, loading_movies: true, error: null } satisfies InputHandlingState as InputHandlingState
 
     export const inputHandlingReducer = createReducer(initialState, (builder) => {
@@ -80,6 +101,9 @@ const initialState = { movies: [], yes: [], no: [], seen: [], loading_user: true
             
             if (movie) {
                 state.seen.push(movie)
+            }
+            if (state.movies.length === 0) {
+                sendFeedback({likes: state.yes, dislikes: state.no})
             }
          })
          .addCase(setIdx, (state, action) => {
@@ -93,6 +117,9 @@ const initialState = { movies: [], yes: [], no: [], seen: [], loading_user: true
             else if (movie) {
                 state.no.push(movie)
                 console.log(state.no)
+            }
+            if (state.movies.length === 0) {
+                sendFeedback({likes: state.yes, dislikes: state.no})
             }
          })
          .addCase(fetchFeedbackSuccess, (state, action) => {

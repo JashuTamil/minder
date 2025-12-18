@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { MovieType } from "./types";
 import { useAppDispatch, useAppSelector } from "./StoreProvider";
+import { SEND_USER_DATA } from "./api/feedback/routes";
 
 const App: React.FC = () => {
 
@@ -15,6 +16,7 @@ const App: React.FC = () => {
 
     const setMovies = (name: string, position: number) => {dispatch({type:'inputHandling/setIdx', payload: {name, position}})}
     const setSeen = (name: string) => {dispatch({type:'inputHandling/setSeen', payload: name})}
+
 
     if (loading_movies || loading_user) {
       return <div className="grid h-[400px] w-full place-items-center">Loading movies...</div>;
@@ -52,8 +54,13 @@ const App: React.FC = () => {
         </ul>
         
       ) : (
-        <p className="text-2xl font-bold">No more movies :|</p>
-      )}
+        <>
+          <p className="text-2xl font-bold">No more movies :|</p>
+        </>
+        
+      )
+      
+      }
     </div>
   );
 
@@ -105,3 +112,7 @@ const Movie: React.FC<MovieProps> = ({ name, url, setMovies, setSeen }) => {
 };
 
 export default App;
+
+function useEffect(arg0: () => void, arg1: any[]) {
+  throw new Error("Function not implemented.");
+}
