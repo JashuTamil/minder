@@ -102,9 +102,6 @@ const initialState = { movies: [], yes: [], no: [], seen: [], loading_user: true
             if (movie) {
                 state.seen.push(movie)
             }
-            if (state.movies.length === 0) {
-                sendFeedback({likes: state.yes, dislikes: state.no})
-            }
          })
          .addCase(setIdx, (state, action) => {
             const movie = state.movies.find(item => item.title === action.payload.name)
@@ -114,13 +111,11 @@ const initialState = { movies: [], yes: [], no: [], seen: [], loading_user: true
                 state.yes.push(movie)
                 console.log(state.yes)
             }
-            else if (movie) {
+            else if (movie){
                 state.no.push(movie)
                 console.log(state.no)
             }
-            if (state.movies.length === 0) {
-                sendFeedback({likes: state.yes, dislikes: state.no})
-            }
+            
          })
          .addCase(fetchFeedbackSuccess, (state, action) => {
             state.loading_user = false;
