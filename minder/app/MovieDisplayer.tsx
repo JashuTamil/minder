@@ -1,15 +1,19 @@
 "use client";
 
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { MovieType } from "./types";
 import { useAppDispatch, useAppSelector } from "./StoreProvider";
 import { SEND_USER_DATA } from "./api/feedback/routes";
+import { sendFeedback } from "./store/reducer/InputHandlingReducer";
 
 const App: React.FC = () => {
 
     const dispatch = useAppDispatch()
     const movies = useAppSelector((state: any) => state.movies)
+    const yes = useAppSelector((state: any) => state.yes)
+    const no = useAppSelector((state: any) => state.no)
     const loading_movies = useAppSelector((state) => state.loading_movies)
     const loading_user = useAppSelector((state) => state.loading_user)
     const error = useAppSelector((state) => state.error)
@@ -17,6 +21,12 @@ const App: React.FC = () => {
     const setMovies = (name: string, position: number) => {dispatch({type:'inputHandling/setIdx', payload: {name, position}})}
     const setSeen = (name: string) => {dispatch({type:'inputHandling/setSeen', payload: name})}
 
+
+    useEffect(() => {
+      if(movies.length === 0) {
+        dispatch(sendFeedback({likes: yes, dislikes: no}))
+      }
+    }, [movies.length, dispatch, yes, no])
 
     if (loading_movies || loading_user) {
       return <div className="grid h-[400px] w-full place-items-center">Loading movies...</div>;
@@ -113,6 +123,3 @@ const Movie: React.FC<MovieProps> = ({ name, url, setMovies, setSeen }) => {
 
 export default App;
 
-function useEffect(arg0: () => void, arg1: any[]) {
-  throw new Error("Function not implemented.");
-}
