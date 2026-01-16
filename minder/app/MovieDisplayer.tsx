@@ -17,16 +17,24 @@ const App: React.FC = () => {
     const loading_movies = useAppSelector((state) => state.loading_movies)
     const loading_user = useAppSelector((state) => state.loading_user)
     const error = useAppSelector((state) => state.error)
+    const [hasSubmitted, setHasSubmitted] = useState(false);
 
     const setMovies = (name: string, position: number) => {dispatch({type:'inputHandling/setIdx', payload: {name, position}})}
     const setSeen = (name: string) => {dispatch({type:'inputHandling/setSeen', payload: name})}
 
 
     useEffect(() => {
-      if(movies.length === 0) {
+      if((movies.length === 0 && !hasSubmitted)&& (!loading_movies)) {
         dispatch(sendFeedback({likes: yes, dislikes: no}))
+        setHasSubmitted(true);
       }
-    }, [movies.length, dispatch, yes, no])
+    }, [movies.length, dispatch, yes, no, hasSubmitted])
+
+    useEffect(() => {
+      if (movies.length > 0 && hasSubmitted) {
+        setHasSubmitted(false);
+      }
+    }, [movies.length, hasSubmitted]);
 
     if (loading_movies || loading_user) {
       return <div className="grid h-[400px] w-full place-items-center">Loading movies...</div>;
