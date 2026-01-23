@@ -24,6 +24,7 @@ const fetchMovieStart = createAction('inputHandling/fetchMovieStart')
 const fetchMovieSuccess = createAction<MovieType[]>('inputHandling/fetchMovieSuccess')
 const fetchMovieFailure = createAction<string>('inputHandling/fetchMovieFailure')
 
+const sendFeedbackStart = createAction('inputHandling/sendFeedbackStart')
 const sendFeedbackSuccess = createAction('inputHandling/sendFeedbackSuccess')
 
 export const fetchFeedback = () => async (dispatch: any) => {
@@ -73,6 +74,8 @@ export const fetchMovies = () => async (dispatch: any) => {
 }
 
 export const sendFeedback = ({likes, dislikes}: {likes: MovieType[], dislikes: MovieType[] }) => async (dispatch: any) => {
+    dispatch(sendFeedbackStart)
+
     const data = {likes, dislikes}
     const request = new Request('https://dummy.com', {
         method: 'POST',
@@ -88,7 +91,6 @@ export const sendFeedback = ({likes, dislikes}: {likes: MovieType[], dislikes: M
             throw new Error(errorData.error || 'Failed to send feedback.');
         }
         else {
-            dispatch(sendFeedbackSuccess)
             dispatch(fetchMovies())
         }
     }
@@ -137,8 +139,8 @@ const initialState = { movies: [], yes: [], no: [], seen: [], loading_user: true
             state.error = action.payload
          })
          .addCase(fetchMovieSuccess, (state, action) => {
-            state.loading_movies = false;
             state.movies = action.payload
+            state.loading_movies = false;
          })
          .addCase(fetchMovieFailure, (state, action) => {
             state.loading_movies = false
