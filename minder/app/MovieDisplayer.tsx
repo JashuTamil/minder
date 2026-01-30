@@ -18,25 +18,28 @@ const App: React.FC = () => {
     const loading_user = useAppSelector((state) => state.loading_user)
     const error = useAppSelector((state) => state.error)
     const [hasSubmitted, setHasSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const setMovies = (name: string, position: number) => {dispatch({type:'inputHandling/setIdx', payload: {name, position}})}
     const setSeen = (name: string) => {dispatch({type:'inputHandling/setSeen', payload: name})}
 
 
     useEffect(() => {
-      if((movies.length === 0 && !hasSubmitted)&& (!loading_movies)) {
+      if((movies.length === 0 && !hasSubmitted)&& (!loading_movies) && !isSubmitting) {
+        setIsSubmitting(true)
         dispatch(sendFeedback({likes: yes, dislikes: no}))
         setHasSubmitted(true);
       }
     }, [movies.length, dispatch, yes, no, hasSubmitted])
 
     useEffect(() => {
-      if (movies.length > 0 && hasSubmitted) {
-        setHasSubmitted(false);
+      if (movies.length > 0 && (hasSubmitted || isSubmitting)) {
+        setHasSubmitted(false)
+        setIsSubmitting(false)
       }
-    }, [movies.length, hasSubmitted]);
+    }, [movies.length, hasSubmitted, isSubmitting]);
 
-    if (loading_movies || loading_user) {
+    if (loading_movies || loading_user || isSubmitting) {
       return <div className="grid h-[400px] w-full place-items-center">Loading movies...</div>;
     }
 
