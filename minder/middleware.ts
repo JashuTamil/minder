@@ -4,9 +4,11 @@ export function middleware(request: NextRequest) {
     const url = request.nextUrl
     const sessionCookie = request.cookies.get('session')?.value
 
-    const protectedRoutes = ['/', '/watchlist']
+    const isProtectedRoute =
+    !url.pathname.startsWith('/login') &&
+    !url.pathname.startsWith('/api');
 
-    if (!sessionCookie && protectedRoutes.some(route => url.pathname === route || url.pathname.startsWith(route))) {
+    if (!sessionCookie && isProtectedRoute) {
         return NextResponse.redirect(new URL('/login', request.url))
     }
 
