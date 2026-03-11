@@ -28,7 +28,7 @@ export default function Login() {
         try {
             const userCredential = await signInWithPopup(auth, provider)
             const idToken = await userCredential.user.getIdToken()
-            await fetch('/api/auth/login' {
+            await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({idToken})
