@@ -1,6 +1,5 @@
-// app/api/auth/login/route.ts
-import { NextRequest, NextResponse } from 'next/server';
-import admin from 'firebase-admin';
+import { NextRequest, NextResponse } from 'next/server'
+import admin from 'firebase-admin'
 
 if (!admin.apps.length) {
   admin.initializeApp({
@@ -9,20 +8,20 @@ if (!admin.apps.length) {
       clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
       privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
     }),
-  });
+  })
 }
 
-const auth = admin.auth();
+const auth = admin.auth()
 
 export async function POST(req: NextRequest) {
-  const { idToken } = await req.json();
+  const { idToken } = await req.json()
 
   try {
-    const decodedToken = await auth.verifyIdToken(idToken);
+    const decodedToken = await auth.verifyIdToken(idToken)
 
-    const expiresIn = 60 * 60 * 24 * 5 * 1000; // ← Fixed: 5 days (was 42)
+    const expiresIn = 60 * 60 * 24 * 5 * 1000
 
-    const sessionCookie = await auth.createSessionCookie(idToken, { expiresIn });
+    const sessionCookie = await auth.createSessionCookie(idToken, { expiresIn })
 
     const response = NextResponse.json({ success: true });
 
@@ -32,11 +31,11 @@ export async function POST(req: NextRequest) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
       path: '/',
-    });
+    })
 
-    return response;
+    return response
   } catch (error) {
-    console.error('Verification error:', error);
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    console.error('Verification error:', error)
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 }
