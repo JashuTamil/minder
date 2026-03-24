@@ -14,9 +14,9 @@ export async function GET_USER_DATA() {
             console.log("No user is currently signed in, or auth object is initializing.")
         }
         
-        const params = new URLSearchParams({userID: uid})
+        
 
-        const response = await fetch(`http://localhost:8000/api/v1/get/get_feedback?${params}`)
+        const response = await fetch(`http://localhost:8000/api/v1/get/get_feedback?${uid}`)
 
         if (!response.ok) {
             throw new Error(`External API responded with status: ${response.status}`);
