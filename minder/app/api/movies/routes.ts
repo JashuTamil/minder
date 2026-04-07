@@ -16,7 +16,7 @@ export async function GET_MOVIE_DATA() {
             console.log("No user is currently signed in, or auth object is initializing.")
         }
         
-        const response = await fetch(`http://localhost:8000/api/v1/get/get_movies?${uid}`)
+        const response = await fetch(`http://localhost:8000/api/v1/get/get_movies/${uid}`)
 
         if (!response.ok) {
             throw new Error(`External API responded with status: ${response.status}`);

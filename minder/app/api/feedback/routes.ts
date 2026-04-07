@@ -16,7 +16,7 @@ export async function GET_USER_DATA() {
         
         
 
-        const response = await fetch(`http://localhost:8000/api/v1/get/get_feedback?${uid}`)
+        const response = await fetch(`http://localhost:8000/api/v1/get/get_feedback/${uid}`)
 
         if (!response.ok) {
             throw new Error(`External API responded with status: ${response.status}`);
